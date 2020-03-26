@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, FlatList, TouchableOpacity, Modal } from 'react-native';
+import { StyleSheet, View, Text, FlatList, TouchableOpacity, Modal,
+    TouchableWithoutFeedback, Keyboard
+} from 'react-native';
 import { globalStyles } from '../styles/global';
 import Card from '../shared/card';
 import { MaterialIcons } from "@expo/vector-icons";
+import ReviewForm from './reviewForm';
 
 const Home = ({ navigation }) => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -17,23 +20,32 @@ const Home = ({ navigation }) => {
         navigation.navigate('ReviewDetails')
     };
 
+    const addReview = (review) => {
+        review.key = Math.random().toString();
+        setReviews(currentReviews => {
+            return [review, ...currentReviews];
+        });
+        setModalOpen(false);
+    };
+
     return (
         <View style={globalStyles.container}>
             <Modal visible={modalOpen} animationType='slide'>
-                <View style={styles.modalContent}>
-                    <MaterialIcons
-                        name='close'
-                        size={24}
-                        onPress={() => setModalOpen(false)}
-                        style={{
-                            ...styles.modalToggle,
-                            ...styles.modalClose,
-                        }}
-                    />
-                    <Text>Hello From the modal</Text>
-                </View>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <View style={styles.modalContent}>
+                        <MaterialIcons
+                            name='close'
+                            size={24}
+                            onPress={() => setModalOpen(false)}
+                            style={{
+                                ...styles.modalToggle,
+                                ...styles.modalClose,
+                            }}
+                        />
+                        <ReviewForm addReview={addReview}/>
+                    </View>
+                </TouchableWithoutFeedback>
             </Modal>
-
             <MaterialIcons
                 name='add'
                 size={24}

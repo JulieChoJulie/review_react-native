@@ -4,3 +4,4 @@ node_modules/
 .expo-shared/
 babel.config.js
 .idea/
+package-lock.json

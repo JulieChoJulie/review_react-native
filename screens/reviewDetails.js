@@ -7,7 +7,6 @@ const ReviewDetails = ({ navigation }) => {
     const pressHandler = () => {
         navigation.goBack();
     }
-
     return (
         <View style={globalStyles.container}>
             <Card>
