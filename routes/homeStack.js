@@ -18,6 +18,7 @@ const screens = {
         screen: ReviewDetails,
         navigationOptions: {
             title: 'Review Details',
+            headerTitleAlign: "center"
         },
     }
 };
